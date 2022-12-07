@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import TimerForm from './TimerForm';
 import TimerButton from './TimerButton';
- function ToggleableTimerForm({isOpen}) {
+ function ToggleableTimerForm() {
+  const [isOpen,setIsOpen] = useState(false);
   return (
     <View
     style={[styles.container,!isOpen && styles.buttonPadding]}
     >
-      {isOpen? <TimerForm />: <TimerButton title="+" color="black" />}
+      {isOpen? <TimerForm />: <TimerButton title="+" color="black" onPress={()=>setIsOpen(true)} />}
     </View>
   )
 }

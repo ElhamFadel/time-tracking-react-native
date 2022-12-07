@@ -10,7 +10,7 @@ const Timer = ({title,project,elapsed}) => {
     <View style={styles.timerContainer}>
       <Text style={styles.title}>{title}</Text>
       <Text>{project}</Text>
-      <Text style={styles.elapsedTime}></Text>
+      <Text style={styles.elapsedTime}>{elapsedString}</Text>
       <View style={styles.buttonGroup}>
         <TimerButton color="blue"  small title="Edit" />
         <TimerButton color="blue" small title="Remove" />

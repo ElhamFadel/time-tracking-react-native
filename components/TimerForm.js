@@ -2,10 +2,16 @@ import { StyleSheet, Text,TextInput, View } from 'react-native'
 import TimerButton from "./TimerButton"
 import React, { useState } from 'react'
 
-const TimerForm = ({id,title:titleOld,project:projectOld}) => {
+const TimerForm = ({id,onFormClose,onFormSubmit,title:titleOld,project:projectOld}) => {
   const submitText = id ? 'Update' : 'Create';
   const [project,setProject] = useState(id?projectOld : '');
   const [title,setTitle] = useState(id?titleOld : '');
+
+  const handleSubmit = ()=>{
+    onFormSubmit({
+      id,title,project
+    })
+  }
   return (
     <View style={styles.formContainer}>
      <View style={styles.attributeContainer}>
@@ -35,8 +41,8 @@ const TimerForm = ({id,title:titleOld,project:projectOld}) => {
      </View>
      {/* button group */}
      <View style={styles.buttonGroup}>
-      <TimerButton small color="#21BA45" title={submitText} />
-      <TimerButton small color="#DB2828" title="Cancel" />
+      <TimerButton small color="#21BA45" title={submitText} onPress={handleSubmit} />
+      <TimerButton small color="#DB2828" title="Cancel" onPress={onFormClose} />
      </View>
     </View>
   )

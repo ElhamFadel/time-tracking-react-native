@@ -2,6 +2,7 @@ import { Platform,ScrollView, StyleSheet, Text, View , TextInput, KeyboardAvoidi
 import {ToggleableTimerForm,EditableTimer} from "./components"
 import { useState } from 'react';
 import 'react-native-get-random-values';
+import {newTimer} from "./utils"
 import { v4 as uuidv4 } from 'uuid';
 const mockTimers = [
   {
@@ -21,13 +22,33 @@ isRunning: false,
 ]
 export default function App() {
   const [timers,setTimers] = useState(mockTimers);
+  const handleCreateFormSubmit = (timer) =>{
+     setTimers((prevTimers)=>[newTimer(timer),...prevTimers])
+  }
+ const handleFormSubmit = (attrs)=>{
+   setTimers((prevTimers)=>{
+      prevTimers.map((timer)=>{
+        if (timer.id === attrs.id) {
+          const { title, project } = attrs;
+            return {
+            ...timer,
+            title,
+            project,
+            };
+            }
+            return timer
+      })
+   })
+ }
   return (
     <View style={styles.appContainer}>
       <View style={styles.titleContainer}>
          <Text style={styles.title}>Timers</Text>
       </View>
       <ScrollView style={styles.timerList}>
-         <ToggleableTimerForm isOpen={false} />
+         <ToggleableTimerForm
+         onFormSubmit={handleCreateFormSubmit}
+          />
          {
           timers.map(({title,project,id,elapsed,isRunning})=>(
             <EditableTimer
@@ -37,6 +58,7 @@ export default function App() {
             project={project}
             elapsed={elapsed}
             isRunning={isRunning}
+            onFormSubmit={handleFormSubmit}
           />
           ))
          }

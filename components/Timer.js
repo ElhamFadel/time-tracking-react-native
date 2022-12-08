@@ -3,7 +3,7 @@ import React from 'react'
 import TimerButton from './TimerButton'
 import {milliSecondToHuman} from "../utils"
 
-const Timer = ({title,project,elapsed}) => {
+const Timer = ({title,project,elapsed,onEditPress}) => {
   // function millescond to humman
   const elapsedString = milliSecondToHuman(elapsed);
   return (
@@ -12,7 +12,7 @@ const Timer = ({title,project,elapsed}) => {
       <Text>{project}</Text>
       <Text style={styles.elapsedTime}>{elapsedString}</Text>
       <View style={styles.buttonGroup}>
-        <TimerButton color="blue"  small title="Edit" />
+        <TimerButton color="blue"  small title="Edit" onPress={onEditPress} />
         <TimerButton color="blue" small title="Remove" />
       </View>
       <TimerButton color="#21BA45" title="Start" />

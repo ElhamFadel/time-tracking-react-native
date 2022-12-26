@@ -3,9 +3,10 @@ import React from 'react'
 import TimerButton from './TimerButton'
 import {milliSecondToHuman} from "../utils"
 
-const Timer = ({title,project,elapsed,onEditPress}) => {
+const Timer = ({id,title,project,isRunning,elapsed,onEditPress,onRemovePress,onTrackingTimer}) => {
   // function millescond to humman
   const elapsedString = milliSecondToHuman(elapsed);
+  const stateTrackingTimer = isRunning ? 'Stop':'Start';
   return (
     <View style={styles.timerContainer}>
       <Text style={styles.title}>{title}</Text>
@@ -13,9 +14,9 @@ const Timer = ({title,project,elapsed,onEditPress}) => {
       <Text style={styles.elapsedTime}>{elapsedString}</Text>
       <View style={styles.buttonGroup}>
         <TimerButton color="blue"  small title="Edit" onPress={onEditPress} />
-        <TimerButton color="blue" small title="Remove" />
+        <TimerButton color="blue" small title="Remove" onPress={onRemovePress} />
       </View>
-      <TimerButton color="#21BA45" title="Start" />
+      <TimerButton color={isRunning?'red':"#21BA45"} title={stateTrackingTimer} onPress={onTrackingTimer}/>
     </View>
   )
 }

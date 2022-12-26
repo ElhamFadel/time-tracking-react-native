@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import TimeForm from "./TimerForm"
 import Timer from "./Timer"
 import { useState } from 'react'
-function EditableTimer({id,title,project,elapsed,isRunning,onFormSubmit}) {
+function EditableTimer({id,title,project,elapsed,isRunning,onFormSubmit,onRemoveTimer,changeStateTracking}) {
   const [editFormOpen,setEditFormOpen] = useState(false);
   const handleEditPress = () =>{
     openForm();
@@ -13,6 +13,10 @@ function EditableTimer({id,title,project,elapsed,isRunning,onFormSubmit}) {
  const handleSubmit = (timer)=>{
   onFormSubmit(timer);
   closeForm();
+ }
+
+ const handleRemoveTimer = ()=>{
+   onRemoveTimer(id)
  }
 
  const closeForm = ()=>{
@@ -34,6 +38,8 @@ function EditableTimer({id,title,project,elapsed,isRunning,onFormSubmit}) {
     elapsed={elapsed}
     isRunning={isRunning}
     onEditPress={handleEditPress}
+    onRemovePress={handleRemoveTimer}
+    onTrackingTimer={()=>changeStateTracking(id)}
     />
   )
 }
